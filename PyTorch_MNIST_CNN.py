@@ -5,7 +5,7 @@ import numpy as np
 from torch.utils.data import DataLoader
 import torchvision.datasets as dsets
 import torchvision.transforms as tforms
-device = torch.device('cuda:0')
+#device = torch.device('cuda:0')
 
 composetransform = tforms.Compose([
     tforms.Resize((20, 20)),
@@ -37,7 +37,7 @@ class CNN(nn.Module):
         return x
 
 model = CNN(4, 16)
-model.to(device)
+#model.to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr = 0.01)
 
@@ -49,7 +49,7 @@ test_number = len(test_dataset)
 
 for epoch in range(n_epoch):
     for x, y in train_loader:
-        x, y = x.to(device), y.to(device)
+        #x, y = x.to(device), y.to(device)
         yhat = model(x)
         loss = criterion(yhat, y)
         optimizer.zero_grad()
@@ -58,7 +58,7 @@ for epoch in range(n_epoch):
 
     correct = 0
     for x_test, y_test in test_loader:
-        x_test, y_test = x_test.to(device), y_test.to(device)
+        #x_test, y_test = x_test.to(device), y_test.to(device)
         z_test = model(x_test)
         zval, zidx = z_test.max(1)
         correct += (zidx == y_test).sum().item()
